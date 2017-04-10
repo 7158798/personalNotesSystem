@@ -1,0 +1,29 @@
+client c 用户信息（身份证 姓名 邮箱等 ）
+
+securityuser sr 账号密码登录态等 (sr.clientId = c.oid)  
+
+bankaccount bc 银行卡 (bc.AccountownerId = c.oid) 
+ 
+bank b  银行信息 (b.oid = bc.bankid)
+
+pascompany ps 渠道（ps.oid = c.companyId）
+
+agreement ag 合同表 (ag.clientId = c.oid)
+
+account ac 账户 （ac.agreementId= ag.oid /ac.oid = ag.accountId） ac.bankaccountId = bc.oid (YQB  多个账户)
+
+account 记录最终态 和agreemnt 对应的
+
+accountentry ae 落账表 (account 的变化 ac.oid=ae.parentId）
+
+productoffering po 产品(po.oid = ag.productofferingId)
+
+productprovider pp 供应商 (pp.oid = po.productproviderId)
+
+agremeentrequest ar 交易表 (ar.clientId=  c.oid  ar.agreementId = ag.oid ar.productoffingId = po.oid)
+
+financialtransaction fc 交易落账关联表 (ae.financialtransactionId = fc.oid   fc.agreementrequestId = ar.oid)
+
+paymentrequest  py 支付信息表 (py.agreementrequestId = py.oid) BusinessType（ 22 申购  pay 份额  24 快赎 98 普赎）（富聪与南方）
+
+withdrawrequest wr 划拨表（wr.agreementreqeustId = ar.oid）(第三方划拨)
