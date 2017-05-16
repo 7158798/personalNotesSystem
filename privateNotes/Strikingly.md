@@ -20,9 +20,13 @@ reduce the amount of the sample with large amount of data
 2,simplify model
 3,cross check
 
+
+
 ## How would you design a data warehouse to back Strikingly's analytics service to users? Explain the rationale behind your design decision.
 1,understand the Strikingly's analytics service to users, and analyse the importance.
 2,ETL the current external data and OLTP data.
+
+
 
 
 
@@ -32,33 +36,83 @@ reduce the amount of the sample with large amount of data
 when the data we need 
 
 
+
+
+
+
 ## What do you think we can improve in Strikingly with web analytics. How to do that? What data will you need to collect?
+
+
 
 
 
 ## How do you measure the individual effect of each new feature, if possible, when we have more than 1 feature going live together?
 
 
-## How do you calculate and select the best variation in AB test? How do you calculate the confidence probability? *
+
+
+
+## How do you calculate and select the best variation in AB test? How do you calculate the confidence probability? 
+
+
+
+
 
 ## Given the following two cases:
 - 10 engagements within 100 clicks
 - 100 engagements within 1000 clicks
-We can say they have same conversation rate of 10%. Do these two 10% mean the same statistically?
+  We can say they have same conversation rate of 10%. Do these two 10% mean the same statistically?
+
+
+
+
 
 
 ## Do you have any experience of boosting the performance of existing code, e.g. tuning the speed of python code that runs slowly when training models. If so, tell us about it.
 
+
+
+
+
+
+
 ## Ask us 5 questions about Strikingly.
 
+
+
+
+
+
+
 ## What do you do for fun?
+
+
+
+
 
 
 
 ## If we offer you the position in Shanghai, when can you start?
 
 
+
+
+
+
+
 ##Currently Salary?
 
 
+
+
+
+
+
 ## Where did you hear about us?
+
+
+
+
+
+
+

@@ -1,0 +1,1110 @@
+20170405
+------------------------------------------------------------------------------------
+中午开会任务
+1，用python talkingdata数据获取
+日报、周报
+2，吴刚 SQL编程  BAM CRM
+java后边再说 
+3，车型数据获取，kun总 那边给出要求，可能会用火车头啥的 
+
+完成的东西
+
+SourceTree
+pycharm
+anaconda
+navicatPremium
+git 自己的东西 把公司电脑ssh key加到了
+
+pycharm背景颜色
+pycharm -> setting -> Editor -> Colors&Fonts -> Font -> scheme:--
+
+获取git fetch：相当于是从远程获取最新版本到本地，不会自动merge
+拉取git pull：相当于是从远程获取最新版本并merge到本地
+git pull origin master
+上述命令其实相当于git fetch 和 git merge
+在实际使用中，git fetch更安全一些
+因为在merge前，我们可以查看更新情况，然后再决定是否合并
+
+
+
+20170406
+------------------------------------------------------------------------------
+
+武刚未来，自己摸索navicat premium
+mysql crash coourse
+mysql 必知必会 文件 新建在navicat中数据库
+
+
+talkingdata数据获取
+产品研发部每日数据统计
+
+fiddler web debugger
+
+安装了xlutils，现在自己的anaconda中也有xlutils了，可以进行每日数据存储了。
+
+Python处理Excel文档（xlrd, xlwt, xlutils）
+xlrd，xlwt和xlutils是用Python处理Excel文档(*.xls)的高效率工具。其中，xlrd只能读取xls，xlwt只能新建xls（不可以修改），xlutils能将xlrd.Book转为xlwt.Workbook，从而得以在现有xls的基础上修改数据，并创建一个新的xls，实现修改。
+
+在网站:http://www.python-excel.org/, 提供了xlrd,xlwt,xlutils一套工具,xlrd是用来读取excl的,xlwt是用来写入excel的xlutils,引用了xlrd和xlwt来做一些如合并,过滤,修改文件的操作,这个很多人推荐使用,但有一个缺陷,就是,他的一个工作表sheet只能写入65535行,多了就不能写了,解决方法可以是,每65535行新建一个工作表sheet或者向后移动几列,然后写入,他的列最大值为256,所以最多一个sheet文件可以写入:256 * 65535 个数据
+在网站:http://pythonhosted.org/openpyxl/,提供了工具openpyxl,
+
+TalkingData:
+------------
+TalkingData（北京腾云天下科技有限公司）成立于2011年9月，是中国最大的独立第三方移动数据服务平台。2013年完成千万美元A轮融资（北极光领投），2014年完成数千万美元的B轮融资（软银，MileStone领投），总部位于北京，上海设有分公司，并在美国硅谷，日本东京成立了办事处。经过近4年高速发展，TalkingData形成了由开发者服务平台、数据服务平台、数据商业化平台为中心的数据生态体系，覆盖超过20亿独立智能设备，服务于10万款移动应用以及8万多应用开发者。
+客户既有腾讯、百度、网易、搜狐、360、Google、Yahoo、Zynga、宝开、滴滴打车等知名互联网企业，又有中国银联、招商银行、中信银行、平安保险、国信证券、Orchirly、碧桂园、亨得利、全城热恋等传统行业巨头，我们正在利用移动互联网的数据价值，并逐步改变传统行业的未来。
+
+
+fiddler web debugger:
+---------------------
+Fiddler是一款由C#语言开发的免费http调试代理软件，有.net 2 和 .net 4 两种版本。Fiddler能够记录所有的你电脑和互联网之间的http通讯，Fiddler 可以也可以让你检查所有的http通讯，设置断点，以及Fiddle 所有的“进出”的数据。
+
+navicat
+-----------------
+利用MySQL Crash Course MySQL 必知必会王章上下载的mysql_scripts中的create.sql，populate.sql在navicat中建立数据库和数据表
+检索数据 select products.prod_name from acrashmysql.products
+排序检索数据 select prod_name from products order by prod_price DESC,prod_name LIMIT 1;
+过滤数据 
+select prod_name, prod_price from products where prod_price <10;
+select prod_name, prod_price from products where prod_price BETWEEN 5 AND 10;
+数据过滤 
+
+
+将navicat for mysql 中查询出来的内容导出到xls文件中
+保存查询结果，命名，导出向导，选择excel格式，然后点击下一步，填写好excel文件的存放路径，继续下一步。根据需要勾选附加选项，继续下一步。点击开始，等待完成即可。导出成功后，会有successful的提示。
+
+MySQL命令行导出数据库
+
+命令行导出数据库：
+----------------
+导出数据库：mysqldump -u 用户名 -p 数据库名 > 导出的文件名 
+如我输入的命令行:mysqldump -u root -p news > news.sql   (输入后会让你输入进入MySQL的密码)
+（如果导出单张表的话在数据库名后面输入表名即可）
+`
+命令行导入数据库：
+----------------
+导入文件：mysql>source 导入的文件名; 
+如我输入的命令行：mysql>source news.sql; 
+
+MySQL备份和还原,都是利用mysqldump、mysql和source命令来完成的。 
+
+
+mysql：
+右键连接-->命令列界面：可以可以在像在命令行中运行一样
+右键连接-->运行SQL文件
+
+20170407
+---------------------------------------------------------------------------------------------------------------------
+
+WIN7 的系统缩放比例在哪里改？
+---------------------
+1,在Win7桌面点击鼠标右键，选择“屏幕分辨率”。
+2,打开Win7屏幕分辨率设置窗口，在“屏幕分辨率”窗口点击下方的“放大或缩小文本和其它项目”。
+3,选择“放大或缩小文本和其他项目，在“显示”设置窗口，选择要放大的位数。一般来说屏幕较小的笔记本电脑可以放大到125%，台式机可以放大的更多一些，达到150%甚至200%。　
+4,调整放大倍数　 选好之后点击“应用”按钮保存退出，注销后重新登录系统，就会发现所有地方的字体都变大了。
+
+
+
+ Office 2010 中打开多个Excel文件只能在同一窗口中显示的问题
+--------------------------
+Start：
+打开“运行”窗口（快捷键：Win + R），输入regedit编辑注册表。
+定位到【HKEY_CLASSES_ROOT\Excel.Sheet.12\shell\Open】，展开Open，将ddeexec删除，然后选中command，双击右侧窗格的”默认“，将末尾的/dde改为”%1“（注意有双引号）；再双击command，同样将末尾的/dde改为”%1“。
+定位到【HKEY_CLASSES_ROOT\Excel.Sheet.8\shell\Open】，做和上面一样的改动。
+End
+
+
+数据每日拉取
+--------
+
+可以考虑execfile()函数进行多个 XXX.py文件放到一个python main文件中一起执行。
+
+在python代码里执行其他python程序
+听起来很绕口，其实就是在一个python代码里直接运行另外一个.py文件
+exec("anotherprogram.py")
+
+
+
+PV、UV、IP的区别
+---------------
+网站推广需要一个网站访问统计工具，常用的统计工具有百度统计、51la、量子恒道统计等。网站访问量常用的指标为PV、UV、IP。那么什么是PV、UV和IP，PV、UV、IP的区别是什么？
+PV(访问量)：即Page View, 即页面浏览量或点击量，在一定统计周期内用户每次刷新网页一次即被计算一次。 
+UV(独立访客)：即Unique Visitor,访问您网站的一台电脑客户端为一个访客。00:00-24:00内相同的客户端只被计算一次。
+IP(独立IP)：即Internet Protocol,指独立IP数。00:00-24:tf8').encode('gbk')
+
+
+
+
+公司业务概况--自媒体运营
+--------------------------
+
+
+python 中 exec、 eval、 execfile 和 compile 用法
+------------------
+exec语句用来执行储存在字符串或文件中的Python语句。
+例如，我们可以在运行时生成一个包含Python代码的字符串，然后使用exec语句执行这些语句。下面是一个简单的例子。
+>>> exec 'print "Hello World"'
+Hello World
+eval语句用来计算存储在字符串中的有效Python表达式。下面是一个简单的例子。
+>>> eval('2*3')
+6
+
+eval(expression[, globals[, locals]])
+eval(str [ globals [ locals ]])函数将字符串str当成有效python表达式来求值，并返回计算结果。
+同样地, exec语句将字符串str当成有效Python代码来执行.提供给exec的代码的名称空间和exec语句的名称空间相同.
+最后，execfile(filename [,globals [,locals ]])函数可以用来执行一个文件,看下面的例子:
+>>> eval_r('3+4')
+7
+>>> exec 'a=100' 
+>>> a 
+100 
+>>> execfile(r'd:\code\ex\test.py')
+hello world!
+>>>
+
+默认的，eval(),exec,execfile()所运行的代码都位于当前的名字空间中. eval(), exec 和 execfile()函数也可以接受一个或两个可选字典参数作为代码执行的全局名字空间和局部名字空间. 例如:
+globals={'x':7,'y':10,'birds':['parrot','swallow','albatross']}
+locals={}
+# 将上边的字典作为全局和局部名称空间
+a=eval("3*x+4*y",globals,locals)
+exec "for b in birds:print b" in globals,locals # 注意这里的语法 
+parrot
+swallow
+albatross
+execfile("foo.py", globals, locals)
+
+注意例子中exec语句的用法和eval(), execfile()是不一样的. exec是一个语句(就象print或while), 而eval_r()和execfile()则是内建函数.
+exec(str) 这种形式也被接受，但是它没有返回值。
+
+当一个字符串被exec,eval(),或execfile()执行时,解释器会先将它们编译为字节代码，然后再执行.这个过程比较耗时,所以如果需要对某段代码执行很多次时,最好还是对该代码先进行预编译,这样就不需要每次都编译一遍代码，可以有效提高程序的执行效率。
+compile(str ,filename ,kind )函数将一个字符串编译为字节代码, str是将要被编译的字符串, filename是定义该字符串变量的文件，kind参数指定了代码被编译的类型-- 'single'指单个语句, 'exec'指多个语句, 'eval'指一个表达式. cmpile()函数返回一个代码对象，该对象当然也可以被传递给eval()函数和exec语句来执行,例如:
+>>> str = 'for i in range(0, 10): print i'
+>>> c = compile(str,'','exec')
+>>> exec c 
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+>> str2 = '3*6 + 4*8'
+>>> c2 = compile(str2,'','eval')        # 编译为表达式 
+>>> result = eval_r(c2)                    # 执行
+>>> result
+50
+
+
+
+
+
+
+foo还有bar都是无意义的代名词，就好像中文里面的“某某“，“张三李四”差不多。
+foo bar baz = 无名氏 = 张三李四小明小张
+
+
+20170410
+-------------------------------------------------------------------------------------------------------------
+公司mysql：
+172.16.1.114:3306
+root
+Hubin123
+http://git.nfs.org/wangxun/aiaf-spi.git
+http://git.nfs.org/wangxun/aiaf-spi.git
+
+
+3306是MySQL的默认端口。
+
+
+fiddler
+-----------
+Fiddler是最强大最好用的Web调试工具之一，它能记录所有客户端和服务器的http和https请求，允许你监视，设置断点，甚至修改输入输出数据，Fiddler包含了一个强大的基于事件脚本的子系统，并且能使用.net语言进行扩展
+　　你对HTTP 协议越了解， 你就能越掌握Fiddler的使用方法。你越使用Fiddler，就越能帮助你了解HTTP协议。
+　　Fiddler无论对开发人员或者测试人员来说，都是非常有用的工具。
+
+Fiddler是一款由C#语言开发的免费http调试代理软件，有.net 2 和 .net 4 两种版本。Fiddler能够记录所有的你电脑和互联网之间的http通讯，Fiddler 可以也可以让你检查所有的http通讯，设置断点，以及Fiddle 所有的“进出”的数据。
+
+安装完成后，在开始菜单中找到Fiddler 2并运行，打开IE浏览器，访问某个网站，此时在Fiddler中就可以看到抓取的数据了
+
+获取cookies，以某开源站为例，先清空Fiddler的抓取记录，然后在网页中输入用户名、密码登录，显示登录成功后，查看Fiddler捕捉到的第1条记录，点击右侧[Raw]
+
+在新弹出的程序窗口中我们就可以看到详细的信息记录，其中就包括了cookies
+
+
+
+
+武刚：
+C语言爬虫比较多，java少。
+
+公司后台开发基于现成的模块框架，sql
+因为其实软件发展到现在大多东西前人都搞过相关功能，我们要么直接拿来用，要么修修补补，
+和我用python感觉一样，我们主要学习的是如何用，至于底层的为什么，是什么我们只要了解，他的意思，不需要具体指导底层是如何实现的，等有需要时再看。这其实也是学习的途径、方法论。
+
+数据是app端写入的，我们后台数据库，需要查询 分析，交易、对账、图形化等。
+
+我们这边数据量很小的，服务器主机是4T，也就是说 根本用不到大数据，不够用了加一个就好了。
+
+
+版本不同，excel的最大行数和列数不同。2003版最大行数是65536行，最大列数是256列。Excel2007及以后的版本最大行数是1048576行，最大列数是16384列。
+
+
+python、 fiddler、cookie
+request和response，session和cookie
+
+
+20170411
+---------------------------------------------------------------------------------------------------------------
+
+汽车之家所有车型数据爬取，
+【车型大全】汽车车型大全_汽车之家
+www.autohome.com.cn/car/
+
+这是动态网页，需要点击才能显示完全，
+
+火车头，好像功能很强大，可以考虑使用。
+
+
+
+20170412
+---------------------------------------------------------------------------------------------------------------
+
+
+resp.text返回的是Unicode型的数据。
+resp.content返回的是bytes型也就是二进制的数据。
+也就是说，如果你想取文本，可以通过r.text。
+如果想取图片，文件，则可以通过r.content。
+（resp.json()返回的是json格式数据）
+
+举例
+# 例如下载并保存一张图片
+import requests
+jpg_url = 'http://img2.niutuku.com/1312/0804/0804-niutuku.com-27840.jpg'
+content = requests.get(jpg_url).content
+with open('demo.jpg', 'wb') as fp:
+    fp.write(content)
+
+
+
+
+
+20170414
+------------------------------------------------------------------------------------------------------------------
+
+审查元素和查看网页源码还是有一点区别的，这个区别可以说是源代码和DOM的区别，我们审查元素，实际上是查看DOM，DOM渲染过了，查看网页源码看到的才是未解析的源代码。以上就是这篇文章的全部内容了，希望对大家的学习和工作能有一定的帮助。
+
+这对与爬虫来说 很重要，在微微姐系的源代码是单引号，浏览器里审查元素可能就变成双引号了。
+
+审查元素(或者用开发者工具，Firebug)看到的是现在实时性的内容(经过js的修改)：
+而网页源代码看到的是就是最开始浏览器收到HTTP响应内容
+所谓源码，就是别人服务器发送到浏览器的原封不动的代码。
+你那些在源码中找不到的代码，那是在浏览器执行js动态生成的。
+通过审查元素就能看到最终的html代码。
+审查元素可以做到定位网页元素、实时监控网页元素属性变化的功能，可以及时调试、修改、定位、追踪检查、查看嵌套 ，修改样式和查看js动态输出信息，是开发人员得心应手的好工具，相当于Firefox插件提供的检查元素功能。
+然而查看源代码只是把网页输出的源代码直接打开，既不能动态变化，也不能修改。
+
+
+
+更改适配器设置-->网络连接-->属性-->Internet 协议版本4（TCP/IPv4)-->属性：自动获得IP地址\使用下面的IP地址
+
+
+
+20170418
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+mysql 
+root
+localhost
+password='123456'
+
+
+windows下mysql忘记root密码的解决方法
+方法一： 
+1、在DOS窗口下输入net stop mysql5 或 net stop mysql 
+2、开一个DOS窗口，这个需要切换到mysql的bin目录。
+一般在bin目录里面创建一个批处理1.bat,内容是cmd.exe运行一下即可就切换到当前目录，然后输入
+mysqld-nt --skip-grant-tables; 
+或
+mysqld --skip-grant-tables;
+不要关闭窗口
+3、再开一个DOS窗口，mysql -u root 
+4、输入： 
+复制代码 代码如下:
+use mysql 
+update user set password=password("new_pass") where user="root"; 
+flush privileges; 
+exit 
+5、使用任务管理器，找到mysqld-nt的进程，结束进程
+或下面的步骤
+1，停止MYSQL服务，CMD打开DOS窗口，输入 net stop mysql 
+2，在CMD命令行窗口，进入MYSQL安装目录 比如E:\Program Files\MySQL\MySQL Server 5.0\bin 
+示范命令: 
+输入 e:回车, 
+输入cd "E:\Program Files\MySQL\MySQL Server 5.0\bin" 
+注意双引号也要输入,这样就可以进入Mysql安装目录了. 
+3，进入mysql安全模式，即当mysql起来后，不用输入密码就能进入数据库。 
+命令为： mysqld-nt --skip-grant-tables 
+4，重新打开一个CMD命令行窗口，输入mysql -uroot -p，使用空密码的方式登录MySQL（不用输入密码，直接按回车） 
+5，输入以下命令开始修改root用户的密码（注意：命令中mysql.user中间有个“点”） 
+mysql> update mysql.user set password=PASSWORD('新密码') where User='root'; 
+6，刷新权限表 
+mysql> flush privileges; 
+7，退出 
+mysql> quit 
+这样MYSQL超级管理员账号 ROOT已经重新设置好了，接下来 在任务管理器里结束掉 mysql-nt.exe 这个进程，重新启动MYSQL即可！（也可以直接重新启动服务器） 
+MYSQL重新启动后，就可以用新设置的ROOT密码登陆MYSQL了！ 
+方法二： 
+首先在 MySQL的安装目录下 新建一个pwdhf.txt, 输入文本：SET PASSWORD FOR 'root'@'localhost' = PASSWORD('*****'); 
+红色部份为 需要设置的新密码 
+用windows服务管理工具或任务管理器来停止MySQL服务 (任务管理器K掉 mysqld-nt 进程) 
+Dos命令提示符到 MySQL安装目录下的bin目录 如我的是 D:\Program Files\MySQL\MySQL Server 5.1\bin 
+然后运行： mysqld-nt --init-file=../pwdhf.txt 
+执行完毕 停止MySQL数据库服务 (任务管理器K掉 mysqld-nt 进程)，然后再重新以正常模式启动MYSQL 即可
+
+我这里是authentication
+
+火车头：
+sql developer 打开 火车头下的数据 db3格式
+我是用 SQLite Developer打开的，挺好用的，下载安装，把数据文件拖到SQLite Developer中就可以看到了！
+
+
+
+
+
+javascript:void(0) 
+
+void(0)用于执行某些处理，但是不整体刷新页面的情况下，
+下面小编就给大家详细介绍js中 javascript:void(0)的含义 ，需要的朋友可以参考下
+javascript:void(0)表示不做任何动作。如：
+<a href="javascript:void(0);" onclick="alert('ok');"></a>  
+这里表示这个链接不做跳转动作，执行onClick事件。
+
+我想使用过ajax的都常见这样的代码
+<a href="javascript:doTest2();void(0);">here</a>
+
+但这儿的void(0)究竟是何含义呢？
+Javascript中void是一个操作符，该操作符指定要计算一个表达式但是不返回值。
+void 操作符用法格式如下：
+1. javascript:void (expression)
+2. javascript:void expression
+expression 是一个要计算的 Javascript 标准的表达式。表达式外侧的圆括号是选的，但是写上去是一个好习惯。
+
+
+
+<li data-target="#drop2" data-trigger="click" data-toggle="overlay">
+
+                <a target="_self" href="javascript:void(0);" style="width: 58px;">停售款<i class="icon10 icon10-down1"></i></a>
+</li>
+
+
+<div id="drop2" class="dropdown cartype-sale-list fn-hide" style="display: block;">
+            <div class="dropdown-content">
+                <ul>
+                    
+                    <li><a href="javascript:void(0);" target="_self" data="6634">2015款</a></li>
+                    
+                    <li><a href="javascript:void(0);" target="_self" data="5109">2014款</a></li>
+                    
+               </ul>
+            </div>
+</div>
+
+
+
+20170419
+------------------------------------------------------------------------------------------------
+
+PS C:\Users\hzh-dexiao> pip --help
+Usage:
+  pip <command> [options]
+Commands:
+  install                     Install packages.
+  download                    Download packages.
+  uninstall                   Uninstall packages.
+  freeze                      Output installed packages in requirements format.
+  list                        List installed packages.
+  show                        Show information about installed packages.
+  check                       Verify installed packages have compatible dependencies.
+  search                      Search PyPI for packages.
+  wheel                       Build wheels from your requirements.
+  hash                        Compute hashes of package archives.
+  completion                  A helper command used for command completion.
+  help                        Show help for commands.
+General Options:
+  -h, --help                  Show help.
+  --isolated                  Run pip in an isolated mode, ignoring
+                              environment variables and user configuration.
+  -v, --verbose               Give more output. Option is additive, and can be
+                              used up to 3 times.
+  -V, --version               Show version and exit.
+  -q, --quiet                 Give less output. Option is additive, and can be
+                              used up to 3 times (corresponding to WARNING,
+                              ERROR, and CRITICAL logging levels).
+  --log <path>                Path to a verbose appending log.
+  --proxy <proxy>             Specify a proxy in the form
+                              [user:passwd@]proxy.server:port.
+  --retries <retries>         Maximum number of retries each connection should
+                              attempt (default 5 times).
+  --timeout <sec>             Set the socket timeout (default 15 seconds).
+  --exists-action <action>    Default action when a path already exists:
+                              (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
+  --trusted-host <hostname>   Mark this host as trusted, even though it does
+                              not have valid or any HTTPS.
+  --cert <path>               Path to alternate CA bundle.
+  --client-cert <path>        Path to SSL client certificate, a single file
+                              containing the private key and the certificate
+                              in PEM format.
+  --cache-dir <dir>           Store the cache data in <dir>.
+  --no-cache-dir              Disable the cache.
+  --disable-pip-version-check
+                              Don't periodically check PyPI to determine
+                              whether a new version of pip is available for
+                              download. Implied with --no-index.
+
+
+
+
+
+pip issue installing almost any library
+
+问题：
+PS C:\Users\hzh-dexiao\desktop\example> pip install pyspider
+Collecting pyspider
+  Could not fetch URL https://pypi.python.org/simple/pyspider/: There was a problem confirming the ssl certificate: [SSL
+: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:661) - skipping
+  Could not find a version that satisfies the requirement pyspider (from versions: )
+No matching distribution found for pyspider
+
+解决办法 ：
+1）You're probably seeing this bug; see also here.
+The easiest workaround is to downgrade pip to one that doesn't use SSL: easy_install pip==1.2.1. This loses you the security benefit of using SSL. The real solution is to use a Python distribution linked to a more recent SSL library.
+2）I found it sufficient to specify the pypi host as trusted. Example:
+pip install --trusted-host pypi.python.org pytest-xdist
+pip install --trusted-host pypi.python.org --upgrade pip
+This solved the following error:
+  Could not fetch URL https://pypi.python.org/simple/pytest-cov/: There was a problem confirming the ssl certificate: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:600) - skipping
+  Could not find a version that satisfies the requirement pytest-cov (from versions: )
+No matching distribution found for pytest-cov
+3）Another cause of SSL errors can be a bad system time – certificates won't validate if it's too far off from the present.
+
+4）For me, the latest pip (1.5.6) works fine with the insecure nltk package if you just tell it not to be so picky about security:
+pip install --upgrade --force-reinstall --allow-all-external --allow-unverified ntlk nltk
+
+公司mysql：
+172.16.1.114:3306
+root
+Hubin123
+http://git.nfs.org/wangxun/aiaf-spi.git
+http://git.nfs.org/wangxun/aiaf-spi.git
+
+
+3306是MySQL的默认端口。
+
+
+20170420
+--------------------------------------------------------------------------------------------------------------
+
+修改浏览器快捷方式需要管理员权限
+360浏览器快捷方式目标后面跟了一个垃圾主页要删掉却需要管理员权限
+可是我已经是管理员了啊
+我刚发现是所有浏览器都带了这个垃圾主页！所有浏览器！而且都删不掉！
+解决：
+先把常规里面”只读“的钩去掉……改完再补回来
+
+输入命令regedit，打开电脑的注册表编辑器。
+gpedit.msc 用户配置
+
+进入 C:\Users\【你的用户名】\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Accessories 目录
+右击Internet Explorer，从Target中删除末尾的 http://hao.qquu8.com
+
+
+标题：
+<a target="_self" href="/(*)/?pvareaid=101714"><i class="icon16 icon16-left"></i>返回 [参数]频道</a>
+
+[参数1]
+
+内容：
+<a target="_self" href="/spec/(*)/"><h1>[参数]</h1></a>
+[参数1]
+
+图片：
+<source sizes="240px" type="image/webp" srcset="[参数] 240w, (*) 480w">
+[参数1]
+
+文件图片下载：
+点击文件下载、勾选下载图片和图片保存路径，保存。
+E:\autohome\class2\picture
+E:\autohome\class2\picture
+
+
+
+BootStrap
+----------------
+一个用于快速开发web应用程序和网站的前端框架。
+BootStrap是基于HTML、CSS、JAVASCRIPT的。
+BootStrap包的内容
+基本结构：BOOTSTRAP提供了一个带有网格系统、链接样式、背景的基本结构。
+CSS：BOOTSTRAP自带以下特性：全局的CSS设置、定义基本的HTML元素样式、可扩展的class，以及先进的网格系统。
+组件：BOOTSTRAP包含了十几个可重用的组建，用于创建图像，下拉菜单，导航，警告框、弹出框等等。
+JAVASCRIPT插件：BOOTSTRAP包含了十几个自定义的jQuery插件。可以直接包含所有的插件，也可以逐个包含这些插件。
+定制：可以定制BOOTSTRAPDE的组件、LESS变量和jQuery插件来得到自己的模板。
+
+
+任务管理器：
+taskmgr(或taskmgr.exe）
+使用Ctrl+Shift+Esc 组合键调出
+
+应用程序
+进程
+服务
+性能
+联网
+用户
+
+
+Windows任务管理器提供了有关计算机性能的信息，并显示了计算机上所运行的程序和进程的详细信息；
+
+如果连接到网络，那么还可以查看网络状态并迅速了解网络是如何工作的。
+
+它的用户界面提供了文件、选项、查看、窗口、关机、帮助等六大菜单项，
+其下还有应用程序、进程、性能、联网、用户等五个标签页，窗口底部则是状态栏，从这里可以查看到当前系统的进程数、CPU使用比率、更改的内存<容量等数据，
+默认设置下系统每隔两秒钟对数据进行1次自动更新，也可以点击“查看→更新速度”菜单重新设置。
+
+
+
+问题 如何增量爬虫
+
+
+
+URl参数中?和&的区别：
+
+?是第一个参数
+&是后面的参数
+比如：http://xxxxx/abc?name=admin
+如果是再有一个参数，就再后面加&，第一个参数不能使用&
+http://xxxxx/abc?name=admin&password=admin
+
+?后面带的是get方式传递的值,如果有多个值,用 & 号分割.
+另外正式项目一般不用get方式传递,容易被人sql注入,即所谓的入侵.
+
+#的涵义：
+#代表网页中的一个位置。其右面的字符，就是该位置的标识符。比如，
+http://www.example.com/index.html#print
+就代表网页index.html的print位置。浏览器读取这个URL后，会自动将print位置滚动至可视区域。
+为网页位置指定标识符，有两个方法。一是使用锚点，比如<a name="print"></a>，二是使用id属性，比如<div id="print" >。
+HTTP请求不包括#：
+#是用来指导浏览器动作的，对服务器端完全无用。所以，HTTP请求中不包括#。
+比如，访问下面的网址，
+　　http://www.example.com/index.html#print
+浏览器实际发出的请求是这样的：
+　　GET /index.html HTTP/1.1
+　　Host: www.example.com
+可以看到，只是请求index.html，根本没有"#print"的部分。
+三、#后的字符
+在第一个#后面出现的任何字符，都会被浏览器解读为位置标识符。这意味着，这些字符都不会被发送到服务器端。
+比如，下面URL的原意是指定一个颜色值：
+　　http://www.example.com/?color=#fff
+但是，浏览器实际发出的请求是：
+　　GET /?color= HTTP/1.1
+　　Host: www.example.com
+可以看到，"#fff"被省略了。只有将#转码为%23，浏览器才会将其作为实义字符处理。也就是说，上面的网址应该被写成：
+　　http://example.com/?color=%23fff
+四、改变#不触发网页重载
+单单改变#后的部分，浏览器只会滚动到相应位置，不会重新加载网页。
+比如，从
+　　http://www.example.com/index.html#location1
+改成
+　　http://www.example.com/index.html#location2
+浏览器不会重新向服务器请求index.html。
+
+
+url出现了有+，空格，/，?，%，#，&，=等特殊符号的时候，可能在服务器端无法获得正确的参数值，如何是好？
+解决办法
+将这些字符转化成服务器可以识别的字符，对应关系如下：
+URL字符转义
+用其它字符替代吧，或用全角的。
++    URL 中+号表示空格                                 %2B   
+空格 URL中的空格可以用+号或者编码           %20 
+/   分隔目录和子目录                                     %2F     
+?    分隔实际的URL和参数                             %3F     
+%    指定特殊字符                                          %25     
+#    表示书签                                                  %23     
+&    URL 中指定的参数间的分隔符                  %26     
+=    URL 中指定参数的值                                %3D
+
+
+20170421
+------------------------------------------------------------------------------------------------------------------
+mysql -h localhost -u root -p
+ -h 指出服务器名 localhost是指本机 -u 指出用户名 root是默认的最高权限用户名 -p指出密码 不填就指密码为空
+
+
+由于MySQL服务器以独立的进程运行，并通过网络对外服务，所以，需要支持Python的MySQL驱动来连接到MySQL服务器。
+目前，有两个MySQL驱动：
+mysql-connector-python：是MySQL官方的纯Python驱动；
+MySQL-python：是封装了MySQL C驱动的Python驱动。
+
+以mysql-connector-python为例，演示如何连接到MySQL服务器的test数据库：
+---------------------
+# 导入MySQL驱动:
+>>> import mysql.connector
+# 注意把password设为你的root口令:
+>>> conn = mysql.connector.connect(user='root', password='password', database='test', use_unicode=True)
+
+>>> cursor = conn.cursor()
+# 创建user表:
+>>> cursor.execute('create table user (id varchar(20) primary key, name varchar(20))')
+# 插入一行记录，注意MySQL的占位符是%s:
+>>> cursor.execute('insert into user (id, name) values (%s, %s)', ['1', 'Michael'])
+>>> cursor.rowcount
+1
+# 提交事务:
+>>> conn.commit()
+>>> cursor.close()
+# 运行查询:
+>>> cursor = conn.cursor()
+>>> cursor.execute('select * from user where id = %s', ('1',))
+>>> values = cursor.fetchall()
+>>> values
+[(u'1', u'Michael')]
+# 关闭Cursor和Connection:
+>>> cursor.close()
+True
+>>> conn.close()
+
+使用Python的DB-API时，只要搞清楚Connection和Cursor对象，打开后一定记得关闭，就可以放心地使用。
+使用Cursor对象执行insert，update，delete语句时，执行结果由rowcount返回影响的行数，就可以拿到执行结果。
+使用Cursor对象执行select语句时，通过featchall()可以拿到结果集。结果集是一个list，每个元素都是一个tuple，对应一行记录。
+如果SQL语句带有参数，那么需要把参数按照位置传递给execute()方法，有几个?占位符就必须对应几个参数，例如：
+cursor.execute('select * from user where name=? and pwd=?', ('abc', '123456'))
+SQLite支持常见的标准SQL语句以及几种常见的数据类型。具体文档请参阅SQLite官方网站。
+在Python中操作数据库时，要先导入数据库对应的驱动，然后，通过Connection对象和Cursor对象操作数据。
+要确保打开的Connection对象和Cursor对象都正确地被关闭，否则，资源就会泄露。
+如何才能确保出错的情况下也关闭掉Connection对象和Cursor对象呢？请回忆try:...except:...finally:...的用法。
+
+由于Python的DB-API定义都是通用的，所以，操作MySQL的数据库代码和SQLite类似。
+
+
+python 操作mysql数据库基础
+-------------------------
+#coding=utf-8
+import MySQLdb
+conn= MySQLdb.connect(
+        host='localhost',
+        port = 3306,
+        user='root',
+        passwd='123456',
+        db ='test',
+        )
+cur = conn.cursor()
+#创建数据表
+#cur.execute("create table student(id int ,name varchar(20),class varchar(30),age varchar(10))")
+#插入一条数据
+#cur.execute("insert into student values('2','Tom','3 year 2 class','9')")
+#修改查询条件的数据
+#cur.execute("update student set class='3 year 1 class' where name = 'Tom'")
+#删除查询条件的数据
+#cur.execute("delete from student where age='9'")
+cur.close()
+conn.commit()
+conn.close()
+
+
+>>> conn = MySQLdb.connect(host='localhost',port = 3306,user='root', passwd='123456',db ='test',)
+Connect() 方法用于创建数据库的连接，里面可以指定参数：用户名，密码，主机等信息。
+这只是连接到了数据库，要想操作数据库需要创建游标。
+
+>>> cur = conn.cursor()
+通过获取到的数据库连接conn下的cursor()方法来创建游标。
+
+>>> cur.execute("create table student(id int ,name varchar(20),class varchar(30),age varchar(10))")
+通过游标cur 操作execute()方法可以写入纯sql语句。通过execute()方法中写如sql语句来对数据进行操作。
+
+>>>cur.close()
+cur.close() 关闭游标
+
+>>>conn.commit()
+conn.commit()方法在提交事物，在向数据库插入一条数据时必须要有这个方法，否则数据不会被真正的插入。
+
+>>>conn.close()
+Conn.close()关闭数据库连接
+
+
+Select * From Content  where  标题 is not null and 标题<>''
+
+项目管理部：共享盘
+\\172.16.1.119
+
+
+
+
+win7 64 安装mysql-python：_mysql.c(42) : fatal error C1083: Cannot open include file: 'config-win.h': No such file or directory
+原来还是驱动问题，关人家mysql啥事儿！
+安装：MySQL-python-1.2.3.win-amd64-py2.7.exe 就可以了（百度csdn下载可以找到）
+现在的版本：
+MySQL_python-1.2.5-cp27-none-win_amd64.whl
+安装：
+> pip install MySQL_python-1.2.5-cp27-none-win_amd64.whl
+
+
+一个字符的ASCII码占用存储空间为1个字节
+ASCII编码是由美国国家标准委员会制定的一种包括数字、字母、通用符号、控制符号在内的字符编码集。它是一种7位编码，但它存放时必须占全一个字节，也即占用8位。
+
+
+
+20170424
+------------------------------------------------------------------------------------------------------
+
+execfile(unicode(r"C:\Users\hzh-dexiao\Desktop\talkingdata\pythonfiles1week\云音乐\cleanTest.py","utf-8").encode('gbk'))
+
+
+1. ASCII码
+------------
+在计算机内部，所有的信息最终都表示为一个二进制的字符串。每一个二进制位（bit）有0和1两种状态，因此八个二进制位就可以组合出256种状态，这被称为一个字节（byte）。也就是说，一个字节一共可以用来表示256种不同的状态，每一个状态对应一个符号，就是256个符号，从0000000到11111111。
+上个世纪60年代，美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为ASCII码，一直沿用至今。
+ASCII码一共规定了128个字符的编码，比如空格"SPACE"是32（二进制00100000），大写的字母A是65（二进制01000001）。这128个符号（包括32个不能打印出来的控制符号），只占用了一个字节的后面7位，最前面的1位统一规定为0。
+
+3.Unicode
+-----------
+正如上一节所说，世界上存在着多种编码方式，同一个二进制数字可以被解释成不同的符号。因此，要想打开一个文本文件，就必须知道它的编码方式，否则用错误的编码方式解读，就会出现乱码。为什么电子邮件常常出现乱码？就是因为发信人和收信人使用的编码方式不一样。
+可以想象，如果有一种编码，将世界上所有的符号都纳入其中。每一个符号都给予一个独一无二的编码，那么乱码问题就会消失。这就是Unicode，就像它的名字都表示的，这是一种所有符号的编码。
+Unicode当然是一个很大的集合，现在的规模可以容纳100多万个符号。每个符号的编码都不一样，比如，U+0639表示阿拉伯字母Ain，U+0041表示英语的大写字母A，U+4E25表示汉字"严"。具体的符号对应表，可以查询unicode.org，或者专门的汉字对应表。
+
+4. Unicode的问题
+----------------
+需要注意的是，Unicode只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。
+比如，汉字"严"的unicode是十六进制数4E25，转换成二进制数足足有15位（100111000100101），也就是说这个符号的表示至少需要2个字节。表示其他更大的符号，可能需要3个字节或者4个字节，甚至更多。
+这里就有两个严重的问题，第一个问题是，如何才能区别Unicode和ASCII？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？第二个问题是，我们已经知道，英文字母只用一个字节表示就够了，如果Unicode统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是0，这对于存储来说是极大的浪费，文本文件的大小会因此大出二三倍，这是无法接受的。
+它们造成的结果是：1）出现了Unicode的多种存储方式，也就是说有许多种不同的二进制格式，可以用来表示Unicode。2）Unicode在很长一段时间内无法推广，直到互联网的出现。
+
+5.UTF-8
+---------
+互联网的普及，强烈要求出现一种统一的编码方式。UTF-8就是在互联网上使用最广的一种Unicode的实现方式。其他实现方式还包括UTF-16（字符用两个字节或四个字节表示）和UTF-32（字符用四个字节表示），不过在互联网上基本不用。重复一遍，这里的关系是，UTF-8是Unicode的实现方式之一。
+UTF-8最大的一个特点，就是它是一种变长的编码方式。它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。
+UTF-8的编码规则很简单，只有二条：
+1）对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。
+2）对于n字节的符号（n>1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。
+下表总结了编码规则，字母x表示可用编码的位。
+
+Unicode符号范围 | UTF-8编码方式
+(十六进制) | （二进制）
+--------------------+---------------------------------------------
+0000 0000-0000 007F | 0xxxxxxx
+0000 0080-0000 07FF | 110xxxxx 10xxxxxx
+0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx
+0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+
+已知"严"的unicode是4E25（100111000100101），根据上表，可以发现4E25处在第三行的范围内（0000 0800-0000 FFFF），因此"严"的UTF-8编码需要三个字节，即格式是"1110xxxx 10xxxxxx 10xxxxxx"。然后，从"严"的最后一个二进制位开始，依次从后向前填入格式中的x，多出的位补0。这样就得到了，"严"的UTF-8编码是"11100100 10111000 10100101"，转换成十六进制就是E4B8A5。
+
+
+7. Little endian和Big endian
+上一节已经提到，Unicode码可以采用UCS-2格式直接存储。以汉字"严"为例，Unicode码是4E25，需要用两个字节存储，一个字节是4E，另一个字节是25。存储的时候，4E在前，25在后，就是Big endian方式；25在前，4E在后，就是Little endian方式。
+这两个古怪的名称来自英国作家斯威夫特的《格列佛游记》。在该书中，小人国里爆发了内战，战争起因是人们争论，吃鸡蛋时究竟是从大头(Big-Endian)敲开还是从小头(Little-Endian)敲开。为了这件事情，前后爆发了六次战争，一个皇帝送了命，另一个皇帝丢了王位。
+因此，第一个字节在前，就是"大头方式"（Big endian），第二个字节在前就是"小头方式"（Little endian）。
+那么很自然的，就会出现一个问题：计算机怎么知道某一个文件到底采用哪一种方式编码？
+Unicode规范中定义，每一个文件的最前面分别加入一个表示编码顺序的字符，这个字符的名字叫做"零宽度非换行空格"（ZERO WIDTH NO-BREAK SPACE），用FEFF表示。这正好是两个字节，而且FF比FE大1。
+如果一个文本文件的头两个字节是FE FF，就表示该文件采用大头方式；如果头两个字节是FF FE，就表示该文件采用小头方式。
+
+Python内置函数进制转换的用法
+--------------------------
+
+使用Python内置函数：bin()、oct()、int()、hex()可实现进制转换。
+
+bin(x):Convert an integer number to a binary string. 
+oct(x):Convert an integer number to an octal string. 
+int([number | string[, base]]):Convert a number or string to an integer. 
+hex(x):Convert an integer number to a hexadecimal string.
+bin()、oct()、hex()的返回值均为字符串，且分别带有0b、0o、0x前缀。
+
+	
+	2进制		8进制		10进制		16进制
+2进制	-		bin(int(x, 8))	bin(int(x, 10))	bin(int(x, 16))
+8进制	oct(int(x, 2))	-		oct(int(x, 10))	oct(int(x, 16))
+10进制	int(x, 2)	int(x, 8)	-		int(x, 16)
+16进制	hex(int(x, 2))	hex(int(x, 8))	hex(int(x, 10))	-
+
+bin(int('4E25',16))
+'0b100111000100101'
+
+
+如同密码领域一样，从明文到密码是加密，从密码到明文是解密。
+在python中，编码encode（）：unicode-->str;解码decode（）：str-->unicode.
+既然是编码，那么就和密码领域一样，编码和解码自然涉及到编码/解码方案（对应加密或者解密算法），unicode相当于明文。
+在python中，编码函数是encode（），解码函数是decode（）。
+需要注意的一点是，如果我们调用str.encode(),这里涉及到一个隐士的类型转化，会现将str转化成unicode，才能进行编码，这也是不太容易理解的地方。
+所以，str.encode()实际上就等价于str.decode(sys.defaultencoding).encode().而sys.defaultencoding一般是ascii，它是不能用来编码中文字符的。
+
+u'string'  表示 已经是 unicode 编码的 'string' 字符串
+而 unicode('string') 是 即将要把 'string' 转化为 unicode 编码（但在执行这条语句之前，还不一定是unicode编码）
+unicode 初始化 源码
+def __init__(self, string=u'', encoding=None, errors='strict'): # known special case of unicode.__init__
+        """
+        unicode(object='') -> unicode object
+        unicode(string[, encoding[, errors]]) -> unicode object
+         
+        Create a new Unicode object from the given encoded string.
+        encoding defaults to the current default string encoding.
+        errors can be 'strict', 'replace' or 'ignore' and defaults to 'strict'.
+        # (copied from class doc)
+        """
+        pass
+
+sys.setdefaultencoding('gb2312')
+这个的意思，是更改cmd的也就是系统的默认编码的。windows默认是一般是gbk
+你也可以 
+sys.setdefaultencoding('utf-8')
+最主要的问题就是编码字符集不一致问题。
+将所有的都设置成 utf-8 编码。什么问题都没了。
+
+
+
+reuqests:
+------------------------
+Requests 唯一的一个非转基因的 Python HTTP 库，人类可以安全享用。
+
+
+
+
+
+
+
+
+
+mysql
+join
+
+分库分表
+
+
+
+session
+
+
+
+20170425
+------------------------------------------------------------------------------------------------------------------
+
+
+
+mysql
+
+
+navicat premium
+在ER图中有些 表关系没有连接的原因是：设计表时没有指定外键，可以通过选中数据表，右键--设计表--外键，来处理。
+
+
+
+
+20170426
+-----------------------------------------------------------------------------------------------------------------
+
+Spring suite tool 安装
+与eclipse ide forjava 界面基本一样，可以看eclipse 的教程
+
+java的jdk已经安装
+
+
+
+
+20170427
+------------------------------------------------------------------------------------------------------------------
+
+source code pro
+
+
+
+20170428
+------------------------------------------------------------------------------------------------------------------
+
+
+
+Source Code Pro 是Adobe 发布的一套开源字体，用来作为代码展示、编写非常的合适。
+
+Source Code Pro 是由大名鼎鼎的 Adobe 公司发布的一款开源且完全免费的等宽编程字体，它非常适合用于阅读代码，支持 Linux、Mac OS X 和 Windows 等操作系统，而且无论商业或个人都可以免费使用，相当厚道。这款字体和微软的 Consolas 一样均定位于“编程字体”，相信作为天天接触代码的开发者，你肯定不会错过这一新选择吧
+
+
+听大牛说Source Code Pro字体是最适合写代码的字体，程序员必备
+下载Sourece Code Pro
+TTF文件下达文件是我们需要安装的字体。
+打开TTF文件夹，将后缀名为.ttf的文件copy到C:\Windows\Fonts目录下，copy完成后，下面会出现Source Code Pro字体，windows字体归类，这就表示安装完成了。
+
+
+eclipse Ctrl +左键查看源代码:
+----------------------------
+在使用Eclipse进行java编程时，有时我们需要查看一些类的源代码，这时ctrl+鼠标左键是个很常用的操作，但有时我们发现这个操作实现不了，经常显示Source not found。
+1)打开Eclipse，点击Windows。
+2)在Windows选项下，选择“perferences”。
+3)在“perferences”窗口下，选择java->Incelled jres。
+4)点击“jre8”，点击右侧“ Edit”。
+5)在edit jre对话框中，找到以“rt.jar”结尾的文件。点击展开。
+6)选择“ Source Attachment”。点击。
+7)在 “Source Attachment”对话框下，选择”External location“。路径为安装java JDK时的路径，关键是在此路径下，找到src.zip,就行了。
+
+
+
+python 发送邮件
+Python实现SMTP发送邮件详细教程
+-----------------------------
+SMTP协议
+首先了解SMTP(简单邮件传输协议)，邮件传送代理程序使用SMTP协议来发送电邮到接收者的邮件服务器。SMTP协议只能用来发送邮件，不能用来接收邮件，而大多数的邮件发送服务器都是使用SMTP协议。SMTP协议的默认TCP端口号是25。
+环境调试
+上面说了是使用SMTP协议发送的邮件，所以需要先查看您的发件人邮箱是否有开启SMTP协议，如没有需要开启，我测试使用的是163.com的邮箱作为发信人邮箱，开启SMTP协议如下图所示。
+1.先登录到163.com邮箱中(网易邮箱)
+2.看到邮箱上面的功能栏中有一个“设置”的选项，单击该选项，然后选择下拉菜单的“POP3/SMTP/IMAP”
+3.如下图所示，上面红框的两个必须勾选上，如没有勾选，要选择开启就可以勾选上了，然后可以看到下面红框里是：SMTP服务器:smtp.163.com
+实现代码
+经过上面的设置后就将环境调试好了，下面就可以实现代码了，推荐使用pycharm4.5.3编辑器来编写代码，下面的代码在python2.7和python3.4版本测试都可使用。
+
+#coding:utf-8  #强制使用utf-8编码格式
+import smtplib #加载smtplib模块
+from email.mime.text import MIMEText
+from email.utils import formataddr
+my_sender='发件人邮箱账号' #发件人邮箱账号，为了后面易于维护，所以写成了变量
+my_user='收件人邮箱账号' #收件人邮箱账号，为了后面易于维护，所以写成了变量
+def mail():
+  ret=True
+  try:
+    msg=MIMEText('填写邮件内容','plain','utf-8')
+    msg['From']=formataddr(["发件人邮箱昵称",my_sender])  #括号里的对应发件人邮箱昵称、发件人邮箱账号
+    msg['To']=formataddr(["收件人邮箱昵称",my_user])  #括号里的对应收件人邮箱昵称、收件人邮箱账号
+    msg['Subject']="主题" #邮件的主题，也可以说是标题
+ 
+    server=smtplib.SMTP("smtp.xxx.com",25) #发件人邮箱中的SMTP服务器，端口是25
+    server.login(my_sender,"发件人邮箱密码")  #括号中对应的是发件人邮箱账号、邮箱密码
+    server.sendmail(my_sender,[my_user,],msg.as_string())  #括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
+    server.quit()  #这句是关闭连接的意思
+  except Exception:  #如果try中的语句没有执行，则会执行下面的ret=False
+    ret=False
+  return ret
+ 
+ret=mail()
+if ret:
+  print("ok") #如果发送成功则会返回ok，稍等20秒左右就可以收到邮件
+else:
+  print("filed") #如果发送失败则会返回filed
+
+
+
+20170502
+-----------------------------------------------------------------------------------------------------------------
+
+spring
+mybatis
+django
+scrapy
+
+
+gitbash 中使用tree
+----------------
+git-bash is really just a cut down version of mingw.
+I have downloaded the tree.exe inside the zip file from here 
+http://gnuwin32.sourceforge.net/packages/tree.htm 
+as suggested.
+Then I have extracted the tree.exe file to C:\Program Files\Git\usr\bin (I have added this folder to windows path to make it work with the regular CMD but it works with GITBash too). 
+
+5
+down vote
+The GnuWin32 build of tree is at http://gnuwin32.sourceforge.net/packages/tree.htm - you'd need to add it to your path manually if you're not already using GnuWin32.
+
+download Binaries文件tree-1.5.2.2-bin.zip 解压到git里边 同时把tree.exe文件 放到环境变量路径下。
+
+
+
+django
+------
+安装： pip install django
+创建项目： 使用django-admin.py 来创建HelloWorld项目，django-admin.py startproject HelloWorld
+创建完成后我们可以查看下项目的目录结构：
+$ cd HelloWorld/
+$ tree
+.
+|-- HelloWorld
+|   |-- __init__.py
+|   |-- settings.py
+|   |-- urls.py
+|   `-- wsgi.py
+`-- manage.py
+
+目录说明：
+HelloWorld: 项目的容器。
+manage.py: 一个实用的命令行工具，可让你以各种方式与该 Django 项目进行交互。
+HelloWorld/__init__.py: 一个空文件，告诉 Python 该目录是一个 Python 包。
+HelloWorld/settings.py: 该 Django 项目的设置/配置。
+HelloWorld/urls.py: 该 Django 项目的 URL 声明; 一份由 Django 驱动的网站"目录"。
+HelloWorld/wsgi.py: 一个 WSGI 兼容的 Web 服务器的入口，以便运行你的项目。
+接下来我们进入 HelloWorld 目录输入以下命令，启动服务器：
+python manage.py runserver 0.0.0.0:8000
+
+
+django 中文乱码 用了很多 方法没管用，当我用pycharm打开这些文件时，再次运行
+python manage.py runserver 0.0.0.0:8000
+时 中文不在乱码。
+
+
+
+
+Django 创建超级管理员时出现错误，在gitbash中运行如下：报错如下时，解决办法：
+$python manage.py createsuperuser
+Superuser creation skipped due to not running in a TTY. You can run `manage.py createsuperuser` in your project to create one manually.
+解决办法：
+1,I am a Windows10 user.I tried to run py manage.py createsuperuser using Git Bash console on Windows 10. Then I realized, py manage.py createsuperuser Command was able to run when I ran using native Windows Command Line with administrator privileges.
+2,Use "Windows PowerShell" or "Windows Cmd" and then use same command. Git command interface has some restriction.
+
+
+
+20170504
+-------------------------------------------------------------------------------------------------------------------
+
+Building workspace has encountered a problem.Error occured during the build. 
+An internal error occurred during: "Building workspace". Java heap space（内存溢出）
+
+Resolved this issue by increasing the memory of Eclipse itself. Added following in eclipse.ini file.
+-vmargs
+-Dosgi.requiredJavaVersion=1.5
+-Dhelp.lucene.tokenizer=standard
+-XX:MaxPermSize=512m
+-Xms512m
+-Xmx1024m
+
+An internal error has occurred.GC overhead limit exceeded
+This message means that for some reason the garbage collector is taking an excessive amount of time (by default 98% of all CPU time of the process) and recovers very little memory in each run (by default 2% of the heap).
+This effectively means that your program stops doing any progress and is busy running only the garbage collection at all time.
+To prevent your application from soaking up CPU time without getting anything done, the JVM throws this Error so that you have a chance of diagnosing the problem.
+The rare cases where I've seen this happen is where some code was creating tons of temporary objects and tons of weakly-referenced objects in an already very memory-constrained environment.
+
+The GC throws this exception when too much time is spent in garbage collection for too little return, eg. 98% of CPU time is spent on GC and less than 2% of heap is recovered.
+This feature is designed to prevent applications from running for an extended period of time while making little or no progress because the heap is too small.
+You can turn this off with the command line option -XX:-UseGCOverheadLimit
+
+20170508
+-------------------------------------------------------------------------------------------------------------------
+
+127.0.0.1:8080/bam
+
+
+STS Spring Tool Suite由于之前照着菜鸟上做的，所以关于新建 java project与新建class之间的关系问题，
+专门学一下eclipse。
+
+
+第二
+今天新装了内存条 有新所学
+
+
+
+20170509
+---------------------------------------------------------------------------------------------------------
+
+查看电脑硬件配置信息
+DirectX诊断工具
+win+R-->dxdiag
+或者 计算机-->管理-->设备管理器
+
+CPU-Z是一款家喻户晓的CPU检测软件，是检测CPU使用程度最高的一款软件，除了使用Intel或AMD自己的检测软件之外，我们平时使用最多的此类软件就数它了。
+CPU-Z is a freeware that gathers information on some of the main devices of your system.
+
+SPD是内存模组上面的一个可擦写的ROM，里面记录了该内存的许多重要信息，诸如内存的芯片及模组厂商、工作频率、工作电压、速度、容量、电压与行、列地址带宽等参数。SPD信息一般都是在出厂前，由内存模组制造商根据内存芯片的实际性能写入到ROM芯片中。
+
+
+
