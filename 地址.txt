@@ -1,0 +1,9 @@
+网易金融业务管理系统 (V3.0 BUILD 0722)
+http://172.16.1.131/aiaf/Baf/BafConsole
+12345678a
+共享盘：\\172.16.1.119
+
+http://git.nfs.org/wangxun/fcopenapi.git
+git账户:shidexiao sswsdx@163.com
+
+密码：zxcv1234
