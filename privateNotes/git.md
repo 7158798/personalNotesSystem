@@ -41,7 +41,7 @@ git config --global svn.pathnameencoding utf-8
 ```
 乱码情景二：
 使用 git status 时出现乱码，执行以下命令：
-git config --global core.quotepath false
+`git config --global core.quotepath false`
 
 
 
@@ -53,6 +53,10 @@ git config --global core.quotepath false
 
 此外
 在windows下可以使用tortoise git这个可视化工具比较方便，这样就不会出现bash下的乱码问题了。
+
+
+
+## git分支
 
 
 首先，我们创建dev分支，然后切换到dev分支：
@@ -71,7 +75,7 @@ Switched to branch 'dev'
 $ git branch
 * dev
   master
-  ```
+```
 git branch命令会列出所有分支，当前分支前面会标一个*号。
 
 然后，我们就可以在dev分支上正常提交，比如对readme.txt做个修改，加上一行：
@@ -92,4 +96,14 @@ $ git checkout master
 Switched to branch 'master'
 ```
 切换回master分支后，再查看一个readme.txt文件，刚才添加的内容不见了！因为那个提交是在dev分支上，而master分支此刻的提交点并没有变：
+
+现在，我们把`dev`分支的工作成果合并到`master`分支上：
+
+`$ git merge dev`
+
+`git merge`命令用于合并指定分支到当前分支。
+
+合并完成后，就可以放心地删除`dev`分支了：
+
+`$ git branch -d dev`
 
