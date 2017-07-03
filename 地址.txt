@@ -6,4 +6,9 @@ http://172.16.1.131/aiaf/Baf/BafConsole
 http://git.nfs.org/wangxun/fcopenapi.git
 git’Àªß:shidexiao sswsdx@163.com
 
+http://127.0.0.1:8080/bam/
+
+
 √‹¬Î£∫zxcv1234
+
+ftp://172.16.1.95/logs/tomcat1/BafApp.log.2016-02-01
