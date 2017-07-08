@@ -1,4 +1,4 @@
-网易金融业务管理系统 (V3.0 BUILD 0722)
+﻿网易金融业务管理系统 (V3.0 BUILD 0722)
 http://172.16.1.131/aiaf/Baf/BafConsole
 12345678a
 共享盘：\\172.16.1.119
@@ -12,3 +12,9 @@ http://127.0.0.1:8080/bam/
 密码：zxcv1234
 
 ftp://172.16.1.95/logs/tomcat1/BafApp.log.2016-02-01
+
+uat环境 superadmin 12345678a
+http://172.16.1.86:8080/bam
+
+
+https://www.fc18.com.cn/bam/Baf/BafSqlCommand
