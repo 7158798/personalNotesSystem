@@ -26,3 +26,24 @@ Elasticsearch 也是使用 Java 编写的，它的内部使用 Lucene 做索引�
 - 能胜任上百个服务节点的扩展，并支持 PB 级别的结构化或者非结构化数据
 
 Elasticsearch 将所有的功能打包成一个单独的服务，这样你可以通过程序去访问它提供的简单的 RESTful API 服务， 不论你是使用自己喜欢的编程语言还是直接使用命令行（去充当这个客户端）。
+
+
+
+当你解压好了归档文件之后，Elasticsearch 已经准备好运行了。
+
+如果你是在 Windows 上面运行 Elasticseach，你应该运行 `bin\elasticsearch.bat` 而不是 `bin\elasticsearch` 。
+
+测试 Elasticsearch 是否启动成功，可以打开另一个终端，执行以下操作：
+
+```
+curl 'http://localhost:9200/?pretty'
+```
+
+你应该得到和下面类似的响应(response)：
+
+这就意味着你现在已经启动并运行一个 Elasticsearch 节点了，你可以用它做实验了。
+单个 *节点* 可以作为一个运行中的 Elasticsearch 的实例。 而一个 集群 是一组拥有相同 `cluster.name` 的节点， 他们能一起工作并共享数据，还提供容错与可伸缩性。
+(当然，一个单独的节点也可以组成一个集群) 你可以在 `elasticsearch.yml` 配置文件中 修改 `cluster.name` ，该文件会在节点启动时加载 (译者注：这个重启服务后才会生效)。
+关于上面的 `cluster.name` 以及其它 [Important Configuration Changes](https://elasticsearch.cn/book/elasticsearch_definitive_guide_2.x/important-configuration-changes.html) 信息， 你可以在这本书后面提供的生产部署章节找到更多。
+TIP：看到下方的 View in Sense 的例子了么？[Install the Sense console](https://elasticsearch.cn/book/elasticsearch_definitive_guide_2.x/running-elasticsearch.html#sense) 使用你自己的 Elasticsearch 集群去运行这本书中的例子， 查看会有怎样的结果。
+当 Elastcisearch 在前台运行时，你可以通过按 Ctrl+C 去停止。
