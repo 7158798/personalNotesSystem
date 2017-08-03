@@ -1237,3 +1237,43 @@ config params
 host
 mode
 
+
+#20170803
+
+1分钟---7分钟---1分钟---5分钟
+
+
+
+spi.log 与 job.log  只保存当天的数据
+spi.log 
+
+若LastSuccessJobKey:与LastSuccessDate:相同，则测试 进行不下去， 同时自动运行时出现om.mdiaf.baf.BafException: Unknown class name: com.mdiaf.recon.job.fund.nf.FundAdapterCheckCommand
+
+时间改为不同之后，自动运行不再报那个错误，但是也没进去（发现还是发生了相同的错误）
+com.mdiaf.baf.BafException: Unknown class name: com.mdiaf.recon.job.fund.nf.FundAdapterCheckCommand
+
+第一种
+com.mdiaf.batch.exception.NoAlertException: 任务已经成功执行
+第二种
+[FCLOG] 15:48:00.014 [quartzScheduler_Worker-5] INFO  com.mdiaf.job T:4b1febb147e912e9 U: - [JBS] 421873224	nf南方接口健康性检查 开始执行！
+[FCLOG] 15:48:04.282 [pool-1-thread-7] INFO  com.mdiaf.job T: U: - SPI-ALERT JobErrorNoRunListener listener begin
+[FCLOG] 15:48:04.282 [pool-1-thread-7] INFO  com.mdiaf.job T: U: - SPI-ALERT go to jobErrorAlert
+[FCLOG] 15:48:04.386 [pool-1-thread-7] INFO  com.mdiaf.job T: U: - SPI-ALERT alert add begin 
+[FCLOG] 15:48:04.464 [pool-1-thread-7] INFO  com.mdiaf.job T: U: - SPI-ALERT alert add end {"startTime":"Aug 3, 2017 3:48:00 PM","errorMeg":"Unknown class name: com.mdiaf.recon.job.fund.nf.FundAdapterCheckCommand","host":"169.254.93.126","jobInstanceOid":425270732,"jobName":"nf南方接口健康性检查"}
+[FCLOG] 15:48:04.464 [pool-1-thread-7] INFO  com.mdiaf.job T: U: - SPI-ALERT JobErrorNoRunListener listener end
+
+
+
+
+## java eclipse 注释代码快捷键 取消代码注释快捷键
+注释掉代码：
+把要注释的代码选中，
+按Ctrl+Shift+/    /*  */  形式的
+ctrl+/    //形式的
+取消代码注释：
+把要注释的代码选中，
+按Ctrl+Shift+\   /*  */  形式的
+ctrl+/   //形式的
+
+
+
