@@ -646,13 +646,13 @@ public String getRunJobParameterById(Long jobId, String parameterName, String de
 		query.setTargetBmfTable(table);
 		query.setParentId(jobSObject.getOid());
 		query.addQueryParam("Name", parameterName);
-
+	
 		List<SObject> jobParameterList = bmfOrmAggrManager.findSObject(query);
 		if (CollectionUtils.isNotEmpty(jobParameterList)) {
 			SObject jobParameter = jobParameterList.get(0);
 			jobParameterValue = jobParameter.getString("Value");
 		}
-
+	
 		if (StringUtils.isEmpty(jobParameterValue)) {
 			jobParameterValue = defaultValue;
 		}
@@ -1263,6 +1263,21 @@ com.mdiaf.batch.exception.NoAlertException: 任务已经成功执行
 [FCLOG] 15:48:04.464 [pool-1-thread-7] INFO  com.mdiaf.job T: U: - SPI-ALERT JobErrorNoRunListener listener end
 
 
+http://172.16.1.131:8080
+PasConfigParam Detail
+
+name				Value			Description
+JobExecutionMode	Cluster			Cluster:集群 Single：单点
+
+TRIGGER_HOST		192.168.1.94	UAT:172.16.1.131
+
+
+
+
+
+
+
+
 
 
 ## java eclipse 注释代码快捷键 取消代码注释快捷键
@@ -1276,4 +1291,83 @@ ctrl+/    //形式的
 ctrl+/   //形式的
 
 
+
+#20170809
+
+## class<T>和 class<?>类型 有什么区别
+平时看java源代码的时候，如果碰到泛型的话，我想? T K V E这些是经常出现的，但是有时想不起来代表什么意思，今天整理下： 
+？ 表示不确定的java类型。 
+T  表示java类型。 
+K V 分别代表java键值中的Key Value。 
+E 代表Element。
+
+Object跟这些东西代表的java类型有啥区别呢？ 
+Object是所有类的根类，是具体的一个类，使用的时候可能是需要类型强制转换的，但是用T ？等这些的话，在实际用之前类型就已经确定了，不需要强制转换。
+
+<？ extends Collection> 这里？代表一个未知的类型，
+但是，这个未知的类型实际上是Collection的一个子类，Collection是这个通配符的上限.
+举个例子
+class Test <T extends Collection> { }
+
+<T extends Collection>其中,限定了构造此类实例的时候T是一个确定类型(具体类型)，这个类型实现了Collection接口，
+但是实现 Collection接口的类很多很多，如果针对每一种都要写出具体的子类类型，那也太麻烦了，干脆还不如用
+Object通用一下。
+<? extends Collection>其中,?是一个未知类型,是一个通配符泛型,这个类型是实现Collection接口即可。
+
+经常在泛化的Class对象定义时看到
+Class<T> xxx;
+和
+Class<?> xxx;
+这样的代码，请问两者之间有什么区别？
+Class<T>在实例化的时候，T要替换成具体类
+Class<?>它是个通配泛型，?可以代表任何类型
+<? extends T>受限统配，表示T的一个未知子类。
+<? super T>下限统配，表示T的一个未知父类。
+
+再比如说，用Class<?>[]时，数组里面的元素可以是任一的。
+Class<?>[] clazzs = {PreferenceActivityTest.class, ExpandableListActivityTest.class};
+
+##java.lang.Class
+Class是一个Java类，跟java API中定义的诸如Thread、Integer类、我们自己定义的类是一样，也继承了Object（Class是Object的直接子类）。总之，必须明确一点，它其实只是个类，只不过名字比较特殊。更进一步说，Class是一个java中的泛型类型。
+
+对于我们自己定义的类，我们用类来抽象现实中的某些事物，比如我们定义一个名称为Car的类来抽象现实生活中的车，然后可以实例化这个类，用这些实例来表示我的车、你的车、黄的车、红的车等等。
+
+现在回到Class 类上来，这个类它抽象什么了？它的实例又表示什么呢？
+在一个运行的程序中，会有许多类和接口存在。我们就用Class这个来来表示对这些类和接口的抽象，而Class类的每个实例则代表运行中的一个类。
+例如，运行的程序有A、B、C三个类，那么Class类就是对A、B、C三个类的抽象。所谓抽象，就是提取这些类的一些共同特征，比如说这些类都有类名，都有对应的hashcode，可以判断类型属于class、interface、enum还是annotation。这些可以封装成Class类的域，另外可以定义一些方法，比如获取某个方法、获取类型名等等。这样就封装了一个表示类型(type)的类。
+
+
+
+## Spring
+下面列出的是使用 Spring 框架主要的好处：
+- Spring 可以使开发人员使用 POJOs 开发企业级的应用程序。只使用 POJOs 的好处是你不需要一个 EJB 容器产品，比如一个应用程序服务器，但是你可以选择使用一个健壮的 servlet 容器，比如 Tomcat 或者一些商业产品。
+- Spring 在一个单元模式中是有组织的。即使包和类的数量非常大，你必须并且只需要但是你需要的，而忽略剩余的那部分。
+- Spring 不会让你白费力气做重复工作，它真正的利用了一些现有的技术，像几个 ORM 框架、日志框架、JEE、Quartz 和 JDK 计时器，其他视图技术。
+- 测试一个用 Spring 编写的应用程序很容易，因为 environment-dependent 代码被放进了这个框架中。此外，通过使用 JavaBean-style POJOs，它在使用依赖注入注入测试数据时变得更容易。
+- Spring 的 web 框架是一个设计良好的 web MVC 框架，它为 web 框架，比如 Structs 或者其他工程上的或者很少受欢迎的 web 框架，提供了一个很好的供替代的选择。
+- 为将特定技术的异常（例如，由 JDBC、Hibernate，或者 JDO 抛出的异常）翻译成一致的， Spring 提供了一个方便的 API，而这些都是未经检验的异常。
+- 轻量级的 IOC 容器往往是轻量级的，例如，特别是当与 EJB 容器相比的时候。这有利于在内存和 CPU 资源有限的计算机上开发和部署应用程序。
+- Spring 提供了一个一致的事务管理界面，该界面可以缩小成一个本地事务（例如，使用一个单一的数据库）和扩展成一个全局事务（例如，使用 JTA）。
+>POJO（Plain Ordinary Java Object）简单的Java对象，**实际就是普通JavaBeans**，是为了避免和EJB混淆所创造的简称。
+>POJO是Plain OrdinaryJava Object的缩写不错，但是它通指没有使用Entity Beans的普通java对象，可以把POJO作为支持业务逻辑的协助类。
+>POJO实质上可以理解为简单的实体类，顾名思义POJO类的作用是方便程序员使用数据库中的数据表，对于广大的程序员，可以很方便的将POJO类当做对象来进行使用，当然也是可以方便的调用其get,set方法。
+>POJO有一些private的参数作为对象的属性。然后针对每个参数定义了get和set方法作为访问的接口。例如：
+>```
+>public class User {
+>  private long id;
+>  private String name;
+>  public void setId(long id) {
+>  	this. id = id;
+>  }
+>  public void setName(String name) {
+>  	this. name=name;
+>  }
+>  public long getId() {
+> 	 return id;
+>  }
+>  public String getName() {
+>  	return name;
+>  }
+>}
+>```
 
