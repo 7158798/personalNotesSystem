@@ -120,7 +120,7 @@ JobInstances(*) 中发现 “nf南方接口健康性检查” 在192.168.1.94（
 
 
 
-#南	方每日上传文件检查
+#南方每日上传文件检查
 
 借鉴：
 batch：
@@ -149,14 +149,118 @@ WithdrawDelayCommand
 
 TransferUploadCommand
 
+南方代销交易扩展文件对账
+南方代销交易扩展文件对账
 NFFundTransExtDepositUploadCommand
+之前是按照这个类型做的
+
+实际按照 WithdrawDelayCommand 那个 更简单，这个也是钟哥推荐的。
+
+
+
+```
+				if ("Java Bean".equals(jobType)) {
+				Class<?> forNameClazz = null;
+				try {
+					forNameClazz = Class.forName(jobCode.trim());
+				} catch (Exception e) {
+					throw new BafException("Unknown class name: " + jobCode, e);
+				}
+				BafJobCommand jobCommand = (BafJobCommand) AiafContext.getBean(forNameClazz);//AiafContext.getBean()这个 关注一下
+				updateJobInstanceKey(jobInstance, jobCommand, jobParameters,executeJobMessage.getContext());
+				jobCommand.execute(executeJobMessage.getContext());
+				}
+```
 
 
 
 BatchManagerImpl.java--------runjob()
-
 BafSchedulerJob.job----------
 
+
+
+```
+@Service
+public class FundJobGeneralServiceImpl implements FundJobGeneralService{
+
+
+	@Override
+	public void uploadFile(ChannelSftp channelSftp, InsuranceFileTransBean fileTransBean, FileJobParameter jobParameter) throws Exception {
+		SftpUtil.upload(fileTransBean.getRemotePath(), channelSftp, fileTransBean.getLocalPath(), fileTransBean.getLocalFileName());
+	}
+	
+	@Override
+	public void downloadFile(ChannelSftp channelSftp,InsuranceFileTransBean fileTransBean,FileJobParameter jobParameter) throws Exception{
+		if(cjlProductProvider.equals(jobParameter.getProductProviderCode()) && !CJLBusinessTypeEnum.TRANSFER_CONFIRM.getCode().equals(jobParameter.getBusinessType())){
+			cjLifeFileConvertZIPService.downloadCJFile(channelSftp,fileTransBean, jobParameter);
+		}else{
+			//判断.bak文件是否已存在
+			boolean bakFileExist = FileUtils.bakFileExist(fileTransBean.getLocalPath(),fileTransBean.getLocalFileName());
+			if (!bakFileExist) {
+				SftpUtil.download(fileTransBean.getRemotePath(), channelSftp,fileTransBean.getLocalPath(),fileTransBean.getRemoteFileName());
+			}else{
+				messagelog.info("{}文件已有.bak文件",fileTransBean.getLocalFileName());
+			}
+		}
+	}
+```
+
+
+
+SftpUtil.java
+```
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+    private static List getDownFileList(String localPath, String remotePath, ChannelSftp sftp, List downFileList) throws SftpException {
+
+        try {
+            File dir = new File(localPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            Map localFileMap = new HashMap();
+            if (dir.exists()) {
+                File[] files = dir.listFiles();
+                for (File file : files) {
+                    if (file.getName().endsWith(".bak")) {
+                        int index = file.getName().lastIndexOf(".");
+                        if (index > 0) {
+                            String fileName = file.getName().substring(0, index);
+                            localFileMap.put(fileName, "");
+                        }
+                    }
+                }
+            }
+            Vector remoteFileList = listFiles(remotePath, sftp);
+            Iterator<LsEntry> it = remoteFileList.iterator();
+            while (it.hasNext()) {
+                String fileName = it.next().getFilename();
+                if (".".equals(fileName) || "..".equals(fileName)) {
+                    continue;
+                }
+                if (localFileMap.containsKey(fileName.trim())) {
+                    continue;
+                } else {
+                    downFileList.add(fileName);
+                }
+            }
+        } catch (SftpException e) {
+            throw e;
+        }
+        return downFileList;
+    }
+    
+        /**
+     * 列出目录下的文件
+     * 
+     * @param directory
+     * @param sftp
+     * @return
+     * @throws SftpException
+     */
+    public static Vector listFiles(String directory, ChannelSftp sftp) throws SftpException {
+		return sftp.ls(directory);
+    }
+```
 
 
 
@@ -342,7 +446,6 @@ public class Demo3 {/** * @param args * 遍历输出D盘文件夹中以a开头�
 }
 
 5，每天下午5：00之前完成
-
 ```
 
 
@@ -408,7 +511,13 @@ WinSCP是一个Windows环境下使用SSH的开源图形化SFTP客户端。同时
 
 NFFTY-SFTP
 
+NFFLT-SFTP 南方基金联泰												/800011
 
+NFFTY-SFTP南方基金藤原				C:/fund/nf						/800004
+
+//NFFTY-SFTP 800004	腾元商户号 RemotePath:/800004	LocalPath:C:/fund/n
+//NFFLT-SFTP 800011   南方基金联泰			/800011			/NFS/fund/nf/800011
+//NFF-SFTP 800008	南方基金 RemotePath:/800008	LocalPath:/NFS/fund/nf
 
 nfdelay南方基金快赎延迟发送
 endpointCode: Nffund_Https
@@ -489,5 +598,260 @@ public void fundFileUpload(FileJobParameter jobParameter) throws Exception {
 		Iterator it = fileList.iterator(); 
 		System.out.println(fileList.toString());
 ```
+
+
+
+
+
+
+
+# Job框架
+
+1，
+```
+package com.mdiaf.batch.service;
+@Transactional
+public class BatchManagerImpl extends BmfObjectManagerImpl implements BatchManager {
+	@Transactional(propagation = Propagation.NOT_SUPPORTED)
+	public void runJob(Object context, Object request) {
+	
+	
+```
+2，
+```
+package com.mdiaf.batch.service;
+public class BafSchedulerJob implements org.quartz.Job {
+	public void execute(JobExecutionContext context) throws JobExecutionException {
+		try {
+			executeInternal(context);
+		} catch (Throwable ex) {
+			logger.error("Failed to run job", ex);
+			throw new JobExecutionException(ex);
+		} finally {
+			AiafContext.clear();
+		}
+	}
+	private void executeInternal(JobExecutionContext context) throws Exception {
+	
+	private void singleRunJob(JobExecutionContext context, BatchManager batchManager, BmfAggrManager bmfAggrManager,SObject bafJob,ExecuteJobMessage executeJobMessage) {
+		Long startTimeStamp = System.currentTimeMillis();
+		logger.info("[JBS] {}\t{} 开始执行！", executeJobMessage.getJobId(), executeJobMessage.getJobName());
+		final SObject jobInstance = createAndUpdateJobInstance(context, batchManager, bmfAggrManager, bafJob);
+		executeJobMessage = this.updateJobExecuteMessage(executeJobMessage, jobInstance.getOid(), startTimeStamp);	
+		BafJobExecutionService jobxecutionService = (BafJobExecutionService) AiafContext.getBean(BafJobExecutionService.class);
+		jobxecutionService.executeJobIntsance(executeJobMessage);//这边转入BafJobExecutionServiceImpl.java的executeJobIntsance()方法
+		logger.info("[JBE] {}\t{}\t{} 执行结束！", System.currentTimeMillis()-startTimeStamp, executeJobMessage.getJobId(), executeJobMessage.getJobName());
+	}
+```
+
+3，
+```
+package com.mdiaf.batch.service;
+@Component
+public class BafJobExecutionServiceImpl implements BafJobExecutionService {
+	@Override
+	public void executeJobIntsance(ExecuteJobMessage executeJobMessage){
+	private void updateJobInstanceKey(SObject jobInstance, BafJobCommand jobCommand, String jobParams,JobExecutionContext context) throws Exception {
+		String jobKey = jobCommand.getJobInstKey(jobParams, jobInstance.getSObject("JobId"));//这边转入AbstractUploadReconCommand.java的getJobInstKey()方法
+	
+```
+4，
+```
+package com.mdiaf.recon.job.fund.base;
+public abstract class AbstractUploadReconCommand implements BafJobCommand {
+	@Override
+	public String getJobInstKey(Object jobParameters, SObject job) {
+	private Long getDiffDayByLastJobTime(String lastJobEndTime){
+```
+5，回到3，BafJobExecutionServiceImpl
+```
+@Override
+public void executeJobIntsance(ExecuteJobMessage executeJobMessage){
+	BafJobCommand jobCommand = (BafJobCommand) AiafContext.getBean(forNameClazz);
+	updateJobInstanceKey(jobInstance, jobCommand, jobParameters,executeJobMessage.getContext());
+	jobCommand.execute(executeJobMessage.getContext());//再从这里转到我们的Command
+
+private void updateJobInstanceKey(SObject jobInstance, BafJobCommand jobCommand, String jobParams,JobExecutionContext context) throws Exception {
+		String jobKey = jobCommand.getJobInstKey(jobParams, jobInstance.getSObject("JobId"));
+
+```
+6，到我们的Command文件
+```
+package com.mdiaf.recon.job.fund.nf.Consignment;
+@Component
+public class NFFundTransExtDepositUploadCommand extends AbstractUploadReconCommand {
+	@Override
+	public void execute(JobExecutionContext context) throws Exception {
+        logger.info("南方代销交易申请对账 begin");
+        JobDataMap dataMap = context.getMergedJobDataMap();
+        String jobParameters = dataMap.getString("jobParameters");
+        
+        if(StringUtils.isEmpty(jobParameters)){
+			throw new Exception("lastSuccessDate有误，请确认！");
+		}  
+        /**
+         * 传一个时间段去,用-分割 表示当前逻辑时间.
+         * 比如我要对22号的账，那么就是2215-2315  上传的文件夹是22
+         */
+		dataMap.put("jobParameters", getStartEndInstKey(jobParameters));//
+		FileJobParameter jobParameter = fundJobGeneralService.createInsJobParameter(dataMap,NFFileCategoryAndNameEnum.TRANSEXT_DEPOSIT.getCategory());
+		fundFileTransProcessService.fundFileUpload(jobParameter);//从这里到FundFileTransProcessServiceImpl.java文件
+		logger.info("南方代销交易申请对账 end");	
+	}    
+```
+7，
+```
+package com.mdiaf.recon.fund.service.impl;
+@Service
+public class FundFileTransProcessServiceImpl implements FundFileTransProcessService{
+	@Override
+	public void fundFileUpload(FileJobParameter jobParameter) throws Exception {
+		log.info(jobParameter.getProductProviderCode()+"数据处理开始执行！");
+		long start = System.currentTimeMillis();
+		// 0. 配置初始化(包括文件配置、通信配置等).
+		InsuranceFileTransBean fileTransBean = fundFileJobGeneralService.createFileTransBean(jobParameter);
+		// 1. 获取数据
+		InsuranceFileDataBean fileDataBean  = fundFileJobGeneralService.getInsuranceFileData(fileTransBean,jobParameter.getProductProviderCode());
+		// 2. 生成文件
+		fundJobGeneralService.createAndWriteFile(fileTransBean, jobParameter,fileDataBean);
+		// 3. 创建SFTP连接
+		ChannelSftp channelSftp = fundJobGeneralService.createChannelSftp(fileTransBean);
+		// 4. 上载新契约交易文件
+		fundJobGeneralService.uploadFile(channelSftp, fileTransBean, jobParameter);
+		// 5. 修改文件名
+		fundJobGeneralService.renameFileToBak(fileTransBean, jobParameter);
+		log.info(jobParameter.getProductProviderCode()+" - 批量文件上传成功,耗时"+(System.currentTimeMillis()-start)+"ms!");
+	}
+```
+8,
+
+```
+package com.mdiaf.recon.fund.service.impl;
+@Service("fundFileProcessStrategy")
+public class FundFileProcessStrategy implements FundFileJobGeneralService{
+	@Override
+	public InsuranceFileTransBean createFileTransBean(FileJobParameter jobParameter) throws Exception {
+		return getAdapter(jobParameter.getProductProviderCode()).createFileTransBean(jobParameter);
+	}
+	
+```
+
+9,
+
+```
+package com.mdiaf.recon.fund.nf.service.impl;
+@Service("nFFundFileJobSupportProcess")
+public class NFFundFileJobSupportProcess implements FundFileJobGeneralService {
+	@Override
+	public InsuranceFileTransBean createFileTransBean(FileJobParameter jobParameter) throws Exception {
+		log.info("fileTransBean start");
+		
+```
+
+
+
+上传与下载，下载部分有对文件的解析部分。
+
+Upload
+
+Download
+
+
+
+# 上海农商行SRCBank： www.srcb.com/
+
+
+
+加密解密： org.apache.commons.codec.binary.Base64
+
+
+
+网易金融业务管理系统
+
+运营--
+
+
+
+
+
+
+
+二类账户支付退款接口
+
+
+NewSrcBankTransAdapter.java
+package com.mdiaf.spi.fund.newsrcbank.adapter;
+@Component("newSrcBankTransAdapter")
+public class NewSrcBankTransAdapter implements FundTransAdapter {
+@Override
+public SharePayResponse sharePay(SharePayRequest sharePayRequest) throws Exception {
+
+
+
+AccountPayRefundRequestConvert.java
+package com.mdiaf.spi.fund.newsrcbank.convert;
+@Component("accountPayRefundRequestConvert")
+public class AccountPayRefundRequestConvert implements FundBeanConvert<SharePayRequest, AccountPayRefundRequest> {
+
+
+
+
+AccountPayRefundRequest.java
+package com.mdiaf.spi.fund.newsrcbank.dto.request;
+public class AccountPayRefundRequest extends Request {
+
+
+
+
+AccountPayRefundRequest.java
+package com.mdiaf.spi.fund.newsrcbank.dto.request;
+public class AccountPayRefundRequest extends Request {
+
+
+
+AccountPayRefundRequestBody.java
+package com.mdiaf.spi.fund.newsrcbank.dto.request;
+public class AccountPayRefundRequestBody extends RequestBody {
+
+
+
+
+
+NewSrcBankTransAdapter.java
+package com.mdiaf.spi.fund.newsrcbank.dto.request;
+public class AccountPayRefundRequest extends Request {
+@Override
+public SharePayResponse sharePay(SharePayRequest sharePayRequest) throws Exception {
+
+
+
+
+
+package com.mdiaf.spi.fund.newsrcbank.dto.request;
+
+
+
+
+
+SharePayResponse.java
+package com.mdiaf.spi.fund.dto;
+public class SharePayResponse extends BaseResponse {
+
+}
+
+
+
+南方批量划拨文件 把我加到短信
+
+
+
+
+
+3.11资金类交易查证接口 
+
+接口名： srcb.msp.pub.comm.capital.verify 
+
+
+
 
 
