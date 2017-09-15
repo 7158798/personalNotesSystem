@@ -118,7 +118,9 @@ JobInstances(*) 中发现 “nf南方接口健康性检查” 在192.168.1.94（
 
 在http://172.16.1.131:8080/aiaf/BmfAggrEditor/AdministrationModule?bmfAggrId=8773中 config params的TRIGGER_HOST的value是192.168.1.94。
 
+# 南方接口健康性检查
 
+FundAdapterCheckCommand
 
 #南方每日上传文件检查
 
@@ -853,5 +855,36 @@ public class SharePayResponse extends BaseResponse {
 
 
 
+跟李军、建超这边由于没有统一命名规范，枚举类等信息导致 可读性差 效率低 还要重构
 
 
+
+
+
+# 南方每日上传文件检查 -- 代码优化
+
+public abstract class AbstractFundRealTimeTransService implements FundRealTimeTransService {
+
+南方基金联泰每日上传文件检查  NFFLT-SFTP 检查正确
+
+LastErrorJobKey:2017090315 好像不管用 以LastSuccessJobKey 为准
+
+
+
+
+
+	@Transactional(propagation = Propagation.NOT_SUPPORTED)
+	public void runJob(Object context, Object request) {
+		SObject jobComponent = (SObject) context;
+		String jobName = jobComponent.getString("Name");
+南方基金腾元每日上传文件检查：检查文件数对与部队均检查 可以
+
+LastSuccessJobKey 是2017090215时  检查的是20170903文件夹里的文件
+
+LastSuccessJobKey 是2017090315时  检查的是20170904文件夹里的文件  jobParameters是2017090415
+
+
+
+
+
+本地文件 new File(fileName)    在远程 不能统计文件数

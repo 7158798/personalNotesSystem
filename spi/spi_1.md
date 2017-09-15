@@ -1684,3 +1684,185 @@ shift+ctrl+o，移除一样
 
 
 
+# 20170830
+
+
+
+web、逻辑层：
+
+service层：
+
+dto层：数据传输对象（DTO)(Data Transfer Object)
+
+dao层：DAO(Data Access Object) 数据访问对象
+
+
+
+
+
+# 20170831
+
+
+
+### MVC与三层架构
+
+通过昨天songyuhua跟我说了dto、与事务管理的含义，一下子把我对整个系统架构的理解，再联系之前的ORM改造，一切都串起来了。
+
+
+
+表现层：UI（User Interface）层
+
+业务逻辑层：BL（Business Logic）层
+
+数据访问层：DA（Data Access）层
+
+
+
+### Java工程中几种常见的包：PO，VO，DAO，BIZ,DTO,Service,ServiceImpl
+
+一、PO:persistant object 持久对象,是与[数据库](http://lib.csdn.net/base/mysql)中的表相映射的[Java](http://lib.csdn.net/base/java)对象。最简单的PO就是对应数据库中某个表中的一条记录，多个记录可以用PO的集合。PO中应该不包含任何对数据库的操作。 
+二、VO:value object值对象。通常用于业务层之间的数据传递，和PO一样也是仅仅包含数据而已。但应是抽象出的业务对象,可以和表对应,也可以不,这根据业务的需要。 
+三、POJO:plain ordinary [Java ](http://lib.csdn.net/base/java)object ,简单无规则java对象，只有一些属性和属性对应的setter和getter方法，tostring（）方法，前面提到的PO和VO都可以归为POJO. 
+四、DTO:data transfer object 数据传输对象，有时我们仅仅需要获得某个表的几个字段，所以此时用PO对象就有点大材小用了，我们就可以用DTO来存储这几个字段。可以把它理解为VO 
+五、DAO:data access object 数据访问对象，此对象用于访问数据库。通常和PO结合使用，DAO中包含了各种数据库的操作方法。通过它中的方法,结合PO对数据库进行相关的操作。 
+六.BIZ:其名称就是商业的简写，也就是其对应的是业务层，此包里的对象通过调用DAO中的对象里的方法来完成业务层上的操作，其目的是封装对数据库的操作。 
+七、Service: 我现在做的项目里是在这个包里只放接口，有的是把此包当成业务层biz， 
+八、ServiceImpl : 此包中的对象为实现Service里的接口类
+
+以上提到的这几个概念是以工程中包的角度来解释的，也就是说工程中的包名字的最后一个字段是以dao，pojo，biz等等来命名的
+
+下面简单介绍一下java中各个层次：
+
+Modle 模型层 ：存放你的实体类 
+Dao ：主要做数据库的交互工作 
+Biz ：做相应的业务逻辑处理 
+Action：是一个控制器
+
+Modle 模型层 ：一般是实体对象(把现实的的事物变成java中的对象，对应前面提到的po，vo，dto)，作用是暂时存储数据方便持久化（存入数据库或者写入文件）
+
+Dao 数据访问层 ： 就是用来访问数据库实现数据的持久化（把内存中的数据永久保存到硬盘中 ）
+
+Biz 也叫做Service层：在此层做相应的业务逻辑处理
+
+Action层：业务层的一部分，是一个管理器 （总开关）（作用是取掉转）（取出前台界面的数据，调用biz方法，转发到下一个action或者页面）
+
+
+
+### 我们公司的架构
+
+每个项目 都有com.msiaf....的包
+
+通过这些包组织程序
+
+目前看没有看到 不同项目之间的联系，但是结合前些天 我看的那个自己动手写tomcat，当时也是两个项目，但是他们通过在Tomcat中的配置文件中添加配置文件
+
+E:\workspace-test\MyWeb\bin
+MyWeb.MyServlet
+
+在MyWeb项目的src.MyWeb包的MyServlet.java文件中实现MyServletIn这个接口，这个借口是来自ServletPkg.jar这个jar包里的serlet包下的一个接口，这个jar包来自Tomcat的src.Servlet,里面一个MyServletIn.java的接口程序。
+
+至此我发现 不同项目的联系可以通过打jar包和配置文件实现。
+
+
+
+公司架构下面，操作数据库的方法的类本应放在DAO中，但是我们这边没有dao包，然后放在了service中，然后调用这些DAO类的对象放在service中。
+
+这里就是
+
+public interface BmfAggrManager extends BmfObjectManager, BmfAggrRepository {
+
+@Service
+@Transactional
+public class BmfAggrManagerImpl extends BmfObjectManagerImpl implements BmfAggrManager {
+
+public interface BmfOrmAggrManager {
+
+@Service
+public class BmfOrmAggrManagerImpl implements BmfOrmAggrManager {
+
+这些类放在了aiaf-bcf中的com.mdiaf.bmf.service中
+
+而调用这些对象的类放在各个项目的service中
+
+像aiaf-ayb下的com.mdiaf.fsa.service中就有调用上面的dao对象。
+
+ 
+
+PO、VO、POJO与DTO是在DTO的包里面，供DAO使用。
+
+
+
+bean可以跨项目访问 通过@autowired     注入可以快速用到 某个对象实例
+
+
+
+
+
+## 张孝祥
+
+因为有几本很好的书，买来之后 阅读发现写的很好 发现作者是张孝祥，所以就多搜了一下 了解
+
+系统环境变量就是在操作系统中定义的变量，可供操作系统上的所有应用程序使用。
+
+shidexiao的用户变量、系统变量：区别是上面的窗口的设置用于个人环境变量，只有以该用户身份登陆系统时才有效，而下面窗口中的设置则对所有用户都有效。
+
+
+
+
+
+# 20170901
+
+
+
+都注意下，代码里面所有时间处理的都用BafDateUtils里面的，绝对禁止私自单独写方法
+
+有需要的在BafDateUtils里面新增方法
+
+
+
+
+
+# 20170904
+
+## @Resource @Autowired @component byType byName
+
+@Resource
+```
+@Component
+public class NffundTradeListener implements IMessageListener {
+	@Autowired
+	private BmfOrmAggrManager bmfOrmAggrManager;
+```
+
+
+```
+@Component
+public class FundInterfaceListener extends AbstractRabbitMultiMessageListener {
+	private Logger logger = LoggerFactory.getLogger(NFSLogType.SPI);
+	@Resource
+	private IMessageListener nffundTradeListener;
+```
+
+@Autowired
+```
+public interface NewSrcBankService {
+```
+
+```
+@Service
+public class NewSrcBankServiceImpl implements NewSrcBankService {
+	@Autowired
+    private BmfOrmAggrManager bmfOrmAggrManager;
+```
+
+```
+@Component("newSrcbTransVerifyRequestConvert")
+public class NewSrcbTransVerifyRequestConvert implements FundBeanConvert<SingleQueryRequest, NewSrcbTransVerifyRequest> {
+	@Autowired
+	private NewSrcBankService newSrcBankService;
+```
+
+@autowired
+private 接口 实例名
+
+##spring mvc
